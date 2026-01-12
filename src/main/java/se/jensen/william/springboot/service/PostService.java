@@ -6,8 +6,8 @@ import se.jensen.william.springboot.dto.PostResponseDTO;
 import se.jensen.william.springboot.exceptions.PostNotFoundException;
 import se.jensen.william.springboot.exceptions.UserNotFoundException;
 import se.jensen.william.springboot.mapper.PostMapper;
-import se.jensen.william.springboot.model.Post;
-import se.jensen.william.springboot.model.User;
+import se.jensen.william.springboot.entities.Post;
+import se.jensen.william.springboot.entities.User;
 import se.jensen.william.springboot.repository.PostRepository;
 import se.jensen.william.springboot.repository.UserRepository;
 

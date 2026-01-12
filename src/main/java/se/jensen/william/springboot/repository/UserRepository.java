@@ -2,7 +2,7 @@ package se.jensen.william.springboot.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import se.jensen.william.springboot.model.User;
+import se.jensen.william.springboot.entities.User;
 
 import java.util.Optional;
 

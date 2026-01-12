@@ -3,7 +3,7 @@ package se.jensen.william.springboot.mapper;
 import org.springframework.stereotype.Component;
 import se.jensen.william.springboot.dto.UserRequestDTO;
 import se.jensen.william.springboot.dto.UserResponseDTO;
-import se.jensen.william.springboot.model.User;
+import se.jensen.william.springboot.entities.User;
 
 @Component
 public class UserMapper {

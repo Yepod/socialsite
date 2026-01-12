@@ -6,7 +6,7 @@ import se.jensen.william.springboot.dto.*;
 import se.jensen.william.springboot.exceptions.UserAlreadyExistException;
 import se.jensen.william.springboot.exceptions.UserNotFoundException;
 import se.jensen.william.springboot.mapper.UserMapper;
-import se.jensen.william.springboot.model.User;
+import se.jensen.william.springboot.entities.User;
 import se.jensen.william.springboot.repository.UserRepository;
 
 import java.util.List;

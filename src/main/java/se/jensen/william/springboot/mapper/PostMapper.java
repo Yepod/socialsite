@@ -2,9 +2,7 @@ package se.jensen.william.springboot.mapper;
 
 import se.jensen.william.springboot.dto.PostRequestDTO;
 import se.jensen.william.springboot.dto.PostResponseDTO;
-import se.jensen.william.springboot.model.Post;
-
-import java.time.LocalDateTime;
+import se.jensen.william.springboot.entities.Post;
 
 public class PostMapper {
 

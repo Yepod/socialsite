@@ -6,13 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.jensen.william.springboot.dto.PostRequestDTO;
 import se.jensen.william.springboot.dto.PostResponseDTO;
-import se.jensen.william.springboot.model.Post;
 import se.jensen.william.springboot.service.PostService;
 import se.jensen.william.springboot.service.UserService;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/posts")

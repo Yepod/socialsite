@@ -1,10 +1,9 @@
 package se.jensen.william.springboot.security;
 
-import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import se.jensen.william.springboot.model.User;
+import se.jensen.william.springboot.entities.User;
 
 import java.util.Collection;
 import java.util.List;

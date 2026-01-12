@@ -1,4 +1,4 @@
-package se.jensen.william.springboot.model;
+package se.jensen.william.springboot.entities;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;

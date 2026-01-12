@@ -1,7 +1,5 @@
 package se.jensen.william.springboot.dto;
 
-import se.jensen.william.springboot.model.User;
-
 import java.time.LocalDateTime;
 
 // Utdata

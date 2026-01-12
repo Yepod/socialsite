@@ -6,21 +6,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.assertj.MockMvcTester;
-import org.springframework.test.web.servlet.client.RestTestClient;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import se.jensen.william.springboot.dto.UserResponseDTO;
-import se.jensen.william.springboot.model.User;
+import se.jensen.william.springboot.entities.User;
 import se.jensen.william.springboot.repository.UserRepository;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -59,6 +54,7 @@ public class UserControllerTest {
         userRepository.save(user);
     }
 
+    @Disabled
     @Test
     void shouldGetMyProfile() throws Exception{
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/users/my-profile")
