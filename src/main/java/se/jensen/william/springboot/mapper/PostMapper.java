@@ -7,7 +7,7 @@ import se.jensen.william.springboot.entities.Post;
 public class PostMapper {
 
     // SKAPAR USER GENOM REQUESTDTO
-    public static Post fromDto(PostRequestDTO postDto){
+    public static Post fromDto(PostRequestDTO postDto) {
         Post post = new Post();
         setPostValues(post, postDto);
         return post;
@@ -20,16 +20,23 @@ public class PostMapper {
     }
 
     // HJÄLP METOD FÖR ATT SÄTTA VÄRDEN
-    private static void setPostValues(Post post, PostRequestDTO postDto){
+    private static void setPostValues(Post post, PostRequestDTO postDto) {
         post.setText(postDto.text());
     }
 
     // SKICKAR USER TILL RESPONSEDTO
+
+    /**
+     * Hämtar Post-inläggarens id och användarnamn från den kopplade User-entiteten.
+     * Linus
+     */
     public static PostResponseDTO toDto(Post post) {
         return new PostResponseDTO(
                 post.getId(),
                 post.getText(),
-                post.getCreatedAt()
+                post.getCreatedAt(),
+                post.getUser() != null ? post.getUser().getId() : null,
+                post.getUser() != null ? post.getUser().getUsername() : "Anonym"
         );
     }
 }

@@ -2,11 +2,15 @@ package se.jensen.william.springboot.service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import se.jensen.william.springboot.dto.*;
+import se.jensen.william.springboot.dto.PostResponseDTO;
+import se.jensen.william.springboot.dto.UserRequestDTO;
+import se.jensen.william.springboot.dto.UserResponseDTO;
+import se.jensen.william.springboot.dto.UserWithPostsResponseDto;
+import se.jensen.william.springboot.entities.User;
 import se.jensen.william.springboot.exceptions.UserAlreadyExistException;
 import se.jensen.william.springboot.exceptions.UserNotFoundException;
+import se.jensen.william.springboot.mapper.PostMapper;
 import se.jensen.william.springboot.mapper.UserMapper;
-import se.jensen.william.springboot.entities.User;
 import se.jensen.william.springboot.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,13 +101,13 @@ public class UserService {
                     return new UserNotFoundException(id);
                 });
 
+        /**
+         *  Mappar användarens posts till PostResponseDTO med hjälp av PostMapper
+         *  Linus
+         */
         List<PostResponseDTO> posts = user.getPosts()
                 .stream()
-                .map(p -> new PostResponseDTO(
-                        p.getId(),
-                        p.getText(),
-                        p.getCreatedAt()
-                ))
+                .map(PostMapper::toDto)
                 .toList();
 
         UserResponseDTO dto = userMapper.toDto(user);
@@ -124,7 +128,7 @@ public class UserService {
 
         userMapper.fromDto(user, userDto);
 
-        if(userDto.password() != null && !userDto.password().isBlank()) {
+        if (userDto.password() != null && !userDto.password().isBlank()) {
             user.setPassword(passwordEncoder.encode(userDto.password()));
         }
 
@@ -140,7 +144,7 @@ public class UserService {
 
         Optional<User> user = userRepository.findById(id);
 
-        if (user.isPresent()){
+        if (user.isPresent()) {
             userRepository.deleteById(id);
             logger.info("User deleted successfully with id: {}", id);
         }
