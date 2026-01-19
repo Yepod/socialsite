@@ -53,7 +53,7 @@ public class SecurityConfig {
                 "http://localhost:5175",
                 "http://localhost:3000",
                 "https://oral-ermina-duckduckdevs-f8201139.koyeb.app"
-                //ungefär: "https://your-frontend-domain.com"
+
         ));
 
         config.setAllowedMethods(List.of(
