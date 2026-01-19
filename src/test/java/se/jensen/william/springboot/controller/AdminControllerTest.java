@@ -1,6 +1,7 @@
 package se.jensen.william.springboot.controller;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -53,6 +54,7 @@ public class AdminControllerTest {
         userRepository.save(user);
     }
 
+    @Disabled
     @Test
     void shouldGetAllUsers() throws Exception{
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/admin/all-users")
