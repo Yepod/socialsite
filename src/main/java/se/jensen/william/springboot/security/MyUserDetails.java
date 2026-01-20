@@ -30,6 +30,10 @@ public class MyUserDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
     }
+    public Long getId() {
+        return user.getId();
+    }
+
 
     public User getDomainUser(){
         return user;
