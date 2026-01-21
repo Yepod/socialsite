@@ -1,17 +1,22 @@
 package se.jensen.william.springboot.controller;
 
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import se.jensen.william.springboot.dto.*;
+import se.jensen.william.springboot.dto.PostRequestDTO;
+import se.jensen.william.springboot.dto.PostResponseDTO;
+import se.jensen.william.springboot.dto.UserRequestDTO;
+import se.jensen.william.springboot.dto.UserResponseDTO;
 import se.jensen.william.springboot.repository.UserRepository;
 import se.jensen.william.springboot.service.PostService;
 import se.jensen.william.springboot.service.UserService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -46,7 +51,7 @@ public class UserController {
 
     @GetMapping("/my-profile")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public ResponseEntity<UserResponseDTO> getProfile(Authentication authentication){
+    public ResponseEntity<UserResponseDTO> getProfile(Authentication authentication) {
         String username = authentication.getName();
         UserResponseDTO response = userService.getUserByUsername(username);
         return ResponseEntity.ok(response);
@@ -59,4 +64,17 @@ public class UserController {
         return ResponseEntity.ok(userService.updateUser(id, dto)); // 200 Ok
     }
 
+    /**
+     * Hämtar inlägg för användares wall med pagination.
+     * 10 inlägg per sida, sorterat nyast först.
+     * Linus
+     */
+    @GetMapping("/{userId}/posts")
+    public ResponseEntity<Page<PostResponseDTO>> getUserWall(
+            @PathVariable Long userId,
+            @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+
+        Page<PostResponseDTO> wall = postService.getPostsByUserId(userId, pageable);
+        return ResponseEntity.ok(wall);
+    }
 }

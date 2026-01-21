@@ -1,5 +1,7 @@
 package se.jensen.william.springboot.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import se.jensen.william.springboot.dto.PostResponseDTO;
@@ -12,8 +14,6 @@ import se.jensen.william.springboot.exceptions.UserNotFoundException;
 import se.jensen.william.springboot.mapper.PostMapper;
 import se.jensen.william.springboot.mapper.UserMapper;
 import se.jensen.william.springboot.repository.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,7 +44,7 @@ public class UserService {
 
         // KOLLAR OM USER REDAN FINNS
         boolean exists = userRepository.existsByUsernameOrEmail(user.getUsername(), user.getEmail());
-        if (exists){
+        if (exists) {
             logger.warn("User already exists with username: {} or email: {}", user.getUsername(), user.getEmail());
             throw new UserAlreadyExistException(user.getUsername(), user.getEmail());
         }
@@ -58,7 +58,7 @@ public class UserService {
     }
 
     // HÄMTAR USERS FRÅN DB, LÄGGER I LISTA, SKICKAR TILLBAKA EN MAPPNING TILL RESPONSEDTO
-    public List<UserResponseDTO> getAllUsers(){
+    public List<UserResponseDTO> getAllUsers() {
         logger.debug("Fetching all users");
         List<User> users = userRepository.findAll();
         logger.info("Fetched {} users", users.size());
@@ -92,7 +92,7 @@ public class UserService {
         return userMapper.toDto(user);
     }
 
-    public UserWithPostsResponseDto getUserWithPosts(Long id){
+    public UserWithPostsResponseDto getUserWithPosts(Long id) {
         logger.debug("Fetching user with posts for id: {}", id);
 
         User user = userRepository.findUserWithPosts(id)
@@ -103,6 +103,8 @@ public class UserService {
 
         /**
          *  Mappar användarens posts till PostResponseDTO med hjälp av PostMapper
+         *  Obs: Hämtar ALLA inlägg utan pagination.
+         *  För wall-sidan använd pagination-endpointet i UserController istället.
          *  Linus
          */
         List<PostResponseDTO> posts = user.getPosts()
@@ -117,7 +119,7 @@ public class UserService {
     }
 
     // UPPDATERAR EXISTERANDE USER
-    public UserResponseDTO updateUser(Long id, UserRequestDTO userDto){
+    public UserResponseDTO updateUser(Long id, UserRequestDTO userDto) {
         logger.info("Updating user with id: {}", id);
 
         User user = userRepository.findById(id)
@@ -139,7 +141,7 @@ public class UserService {
     }
 
     // TAR BORT USER FRÅN DATABASEN
-    public void deleteUser(Long id){
+    public void deleteUser(Long id) {
         logger.info("Attempting to delete user with id: {}", id);
 
         Optional<User> user = userRepository.findById(id);
@@ -147,8 +149,7 @@ public class UserService {
         if (user.isPresent()) {
             userRepository.deleteById(id);
             logger.info("User deleted successfully with id: {}", id);
-        }
-        else {
+        } else {
             logger.warn("Cannot delete - User not found with id: {}", id);
             throw new UserNotFoundException(id);
         }

@@ -1,6 +1,10 @@
 package se.jensen.william.springboot.controller;
 
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +27,7 @@ public class PostController {
 
     // CREATE NEW POST
     @PostMapping
-    public ResponseEntity<PostResponseDTO> newPost(@Valid @RequestBody Long userId, PostRequestDTO dto){
+    public ResponseEntity<PostResponseDTO> newPost(@Valid @RequestBody Long userId, PostRequestDTO dto) {
 
         PostResponseDTO response = postService.createPost(userId, dto);
 
@@ -42,4 +46,12 @@ public class PostController {
         postService.deletePost(id);
         return ResponseEntity.noContent().build(); // 204 No Content
     }
+
+    @GetMapping
+    public ResponseEntity<Page<PostResponseDTO>> getAllPosts(
+            @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<PostResponseDTO> feed = postService.getAllPosts(pageable);
+        return ResponseEntity.ok(feed);
+    }
 }
+
