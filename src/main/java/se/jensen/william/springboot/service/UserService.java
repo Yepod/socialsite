@@ -8,6 +8,7 @@ import se.jensen.william.springboot.dto.PostResponseDTO;
 import se.jensen.william.springboot.dto.UserRequestDTO;
 import se.jensen.william.springboot.dto.UserResponseDTO;
 import se.jensen.william.springboot.dto.UserWithPostsResponseDto;
+import se.jensen.william.springboot.entities.Post;
 import se.jensen.william.springboot.entities.User;
 import se.jensen.william.springboot.exceptions.UserAlreadyExistException;
 import se.jensen.william.springboot.exceptions.UserNotFoundException;
@@ -15,6 +16,7 @@ import se.jensen.william.springboot.mapper.PostMapper;
 import se.jensen.william.springboot.mapper.UserMapper;
 import se.jensen.william.springboot.repository.UserRepository;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -109,6 +111,7 @@ public class UserService {
          */
         List<PostResponseDTO> posts = user.getPosts()
                 .stream()
+                .sorted(Comparator.comparing(Post::getCreatedAt).reversed())
                 .map(PostMapper::toDto)
                 .toList();
 
