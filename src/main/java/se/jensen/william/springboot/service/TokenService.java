@@ -14,6 +14,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
+/**
+ * Service-klass för kunna generering av JWT-tokens
+ * Klassen har ansvaret att spaka JSON WEB TOKEN för att kunna autentisera i applikationen.
+ * när anvädnaren loggar in så generars en token.
+ *
+ * @author William
+ * @author Fadime
+ */
 @Service
 public class TokenService {
 

@@ -39,6 +39,19 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 import java.util.List;
 
+
+/**
+ * Säkerhetskonfigurationen för applikationen.
+ *
+ * Denna konfigurationsklass hanterar all säkerhetsrelaterad konfiguration.
+ * Den är konfigurerad JWT-baserad och CORS-inställningar som används för koppling med frontend,
+ * Klassen har lösenordskryptering och samt har RSA-nyckel
+ *
+ * @author William
+ * @author Patric
+ */
+
+
 @EnableMethodSecurity
 @Configuration
 public class SecurityConfig {

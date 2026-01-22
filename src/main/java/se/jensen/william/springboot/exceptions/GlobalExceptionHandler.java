@@ -9,6 +9,21 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Global undantagshanterare för applikationen
+ *
+ * klassen fångar upp och hanterar excpetioner från controllers i hela applikationen.
+ * den undantagshanterar alla rest controllers.
+ *
+ * klassen hanterar tre undantag som är:
+ * valderingsfel - retunerar 400 bad request
+ * användare itne hittade - returnera 404 not found
+ * användare finns redan  - returnerar 409 conflict
+ *
+ * @author William
+ */
+
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 

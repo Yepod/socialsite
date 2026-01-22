@@ -11,6 +11,16 @@ import se.jensen.william.springboot.service.UserService;
 
 import java.util.List;
 
+/**
+ * REST-controller för administratörsrelaterade funktioner
+ *
+ * controller hanterar alla endpoints under admin
+ * Alla endpoints förutom startsidan kräver ADMIN-roll för åtkomst
+ *
+ * @author William
+ */
+
+
 @RestController
 @RequestMapping("/admin")
 public class AdminController {

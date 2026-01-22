@@ -4,6 +4,18 @@ import se.jensen.william.springboot.dto.PostRequestDTO;
 import se.jensen.william.springboot.dto.PostResponseDTO;
 import se.jensen.william.springboot.entities.Post;
 
+/**
+ * Mapper-klass för konvertering mellan Post-entitet och DTO-objekt.
+ *
+ * Klassen handhåller motoder för att mappa mellan post-entitet och DTO.
+ * Konventerar från postrequestdto till post entitet vid skapande eller uppdateirng av post
+ *
+ * @author William
+ * @author Linus
+ */
+
+
+
 public class PostMapper {
 
     // SKAPAR USER GENOM REQUESTDTO

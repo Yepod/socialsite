@@ -5,6 +5,17 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
+
+/**
+ * Entitetsklass som representerar en "friendship" mellan två användare
+ *
+ * Denna klass modellerar vänskap i systemt och lagrar den information som skicakde request och vem som tar emot adresser
+ * och även vissar status
+ *
+ * @author William
+ */
+
+
 @Entity
 @Table(name = "friendship")
 public class Friendship {

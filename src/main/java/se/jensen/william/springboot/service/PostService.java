@@ -16,6 +16,17 @@ import se.jensen.william.springboot.repository.PostRepository;
 import se.jensen.william.springboot.repository.UserRepository;
 
 import java.time.LocalDateTime;
+/**
+ * Service-klass för hantering av inlägg posts.
+ *
+ * Klassen iunnhåler affärslogik för alla operationer relaterade till inläggen.
+ * Den hanterar skapande, uppdatering, borttagning eller hämtning av inläggen från databasen.
+ *
+ * @author William
+ * @author Fadime
+ * @author Linus
+ */
+
 
 @Service
 public class PostService {

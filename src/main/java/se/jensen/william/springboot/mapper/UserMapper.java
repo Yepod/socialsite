@@ -5,6 +5,14 @@ import se.jensen.william.springboot.dto.UserRequestDTO;
 import se.jensen.william.springboot.dto.UserResponseDTO;
 import se.jensen.william.springboot.entities.User;
 
+/**
+ * Mapper-klass för konvertering mellan User-entitet och DTO-objekt.
+ *
+ * Klassen handhåller metoder för att mappa mellan user entiteten och DTO.
+ *
+ * @author William
+ */
+
 @Component
 public class UserMapper {
 
