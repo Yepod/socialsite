@@ -5,11 +5,12 @@ import se.jensen.william.springboot.entities.User;
 
 import java.time.Instant;
 
-public record FriendRequestResponseDTO(
+public record FriendshipResponseDTO(
         Long id,
         User requester,
         User addressee,
         Friendship.FriendshipStatus status,
         Instant createdAt
-) {
+        )
+    {
 }

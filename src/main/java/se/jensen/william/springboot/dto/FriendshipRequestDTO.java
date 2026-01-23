@@ -1,6 +1,6 @@
 package se.jensen.william.springboot.dto;
 
-public record SendFriendshipRequestDTO(
+public record FriendshipRequestDTO(
         Long requesterId,
         Long addresseeId
 ) {
