@@ -15,8 +15,11 @@ import se.jensen.william.springboot.dto.PostResponseDTO;
 import se.jensen.william.springboot.dto.UserRequestDTO;
 import se.jensen.william.springboot.dto.UserResponseDTO;
 import se.jensen.william.springboot.repository.UserRepository;
+import se.jensen.william.springboot.service.FriendshipService;
 import se.jensen.william.springboot.service.PostService;
 import se.jensen.william.springboot.service.UserService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -25,11 +28,13 @@ public class UserController {
     private final UserService userService;
     private final PostService postService;
     private final UserRepository userRepository;
+    private final FriendshipService friendshipService;
 
-    public UserController(UserService userService, PostService postService, UserRepository userRepository) {
+    public UserController(UserService userService, PostService postService, UserRepository userRepository, FriendshipService friendshipService) {
         this.userService = userService;
         this.postService = postService;
         this.userRepository = userRepository;
+        this.friendshipService = friendshipService;
     }
 
 
@@ -76,5 +81,11 @@ public class UserController {
 
         Page<PostResponseDTO> wall = postService.getPostsByUserId(userId, pageable);
         return ResponseEntity.ok(wall);
+    }
+
+    @GetMapping("/{id}/friends")
+    public ResponseEntity<List<UserResponseDTO>> getAllFriends(@PathVariable Long id) {
+        List<UserResponseDTO> friends = friendshipService.getAllFriends(id);
+        return ResponseEntity.ok(friends);
     }
 }
