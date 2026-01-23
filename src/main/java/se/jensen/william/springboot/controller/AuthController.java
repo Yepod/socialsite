@@ -13,6 +13,19 @@ import se.jensen.william.springboot.dto.LoginResponseDTO;
 import se.jensen.william.springboot.security.MyUserDetails;
 import se.jensen.william.springboot.service.TokenService;
 
+
+/**
+ * REST-controller för autentisering och token-hantering
+ *
+ * controllern hanterar autentiseringsrelaterade endpoints och ansvarar för
+ * att generera JWT-tokens när användare loggar in
+ * Controllern tar också emot inloggningsuppgfiter.
+ *
+ * @author William
+ * @author Patric
+ */
+
+
 @RestController
 @RequestMapping("/request-token")
 public class AuthController {

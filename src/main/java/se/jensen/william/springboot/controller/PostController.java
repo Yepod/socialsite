@@ -13,6 +13,16 @@ import se.jensen.william.springboot.dto.PostResponseDTO;
 import se.jensen.william.springboot.service.PostService;
 import se.jensen.william.springboot.service.UserService;
 
+/**
+ * REST-controller för hantering av inlägg posts
+ *
+ * controller har endpoints för CRUD-operationer.
+ * Controller hanterar nya inlägg som är skapade till specifika användare.
+ *
+ * @author William
+ */
+
+
 @RestController
 @RequestMapping("/posts")
 public class PostController {

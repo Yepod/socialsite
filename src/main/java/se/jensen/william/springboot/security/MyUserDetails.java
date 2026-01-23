@@ -7,6 +7,17 @@ import se.jensen.william.springboot.entities.User;
 
 import java.util.Collection;
 import java.util.List;
+/**
+ * En Anpassad implementering av UserDetails för Spring Security-autentisering
+ *
+ * klassen används som en adapter mellan spring security och user entitet.
+ * klassen konventerar användarens roll till en åtkomst roll med en prefic "ROLE"
+ * som ger åtkomstkontroll.
+ *
+ * @author William
+ * @author Patric
+ */
+
 
 public class MyUserDetails implements UserDetails {
 

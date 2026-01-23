@@ -6,6 +6,17 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
+
+/**
+ * Entitetsklass som representerar ett inlägg post i systemet
+ *
+ * Klassen modellerar användarinlägg och lagrar textinhållet.
+ * och den tidstämplar när inlägget är skappad och senaste uppdaterad.
+ *
+ * @author William
+ */
+
+
 @Entity
 @Table(name = "post")
 public class Post {
