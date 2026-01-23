@@ -21,6 +21,15 @@ import se.jensen.william.springboot.service.UserService;
 
 import java.util.List;
 
+/**
+ * REST-controller för användarhantering
+ *
+ * controller hanterar endpoints för hantering av användare i systemet
+ * controller hanterar registrering av nya användare.
+ *
+ * @author William
+ */
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
