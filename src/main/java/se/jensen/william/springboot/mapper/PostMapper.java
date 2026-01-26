@@ -45,6 +45,7 @@ public class PostMapper {
     public static PostResponseDTO toDto(Post post) {
         return new PostResponseDTO(
                 post.getId(),
+                post.getUser().getId(),
                 post.getText(),
                 post.getCreatedAt(),
                 post.getUser() != null ? post.getUser().getId() : null,
