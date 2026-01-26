@@ -101,6 +101,7 @@ public class UserService {
                 .stream()
                 .map(p -> new PostResponseDTO(
                         p.getId(),
+                        p.getUser().getId(),  // LÄGG TILL userId HÄR
                         p.getText(),
                         p.getCreatedAt()
                 ))
