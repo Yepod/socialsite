@@ -3,6 +3,8 @@ package se.jensen.william.springboot.entities;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 
@@ -37,7 +39,7 @@ public class Friendship {
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
+    private Instant createdAt;
 
     public Friendship() {}
 
@@ -59,8 +61,8 @@ public class Friendship {
     public FriendshipStatus getStatus() { return status; }
     public void setStatus(FriendshipStatus status) { this.status = status; }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public Instant getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
 
     public enum FriendshipStatus {
         PENDING,
