@@ -10,7 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import se.jensen.william.springboot.dto.LoginRequestDTO;
 import se.jensen.william.springboot.dto.LoginResponseDTO;
+import se.jensen.william.springboot.security.MyUserDetails;
 import se.jensen.william.springboot.service.TokenService;
+
+
+/**
+ * REST-controller för autentisering och token-hantering
+ *
+ * controllern hanterar autentiseringsrelaterade endpoints och ansvarar för
+ * att generera JWT-tokens när användare loggar in
+ * Controllern tar också emot inloggningsuppgfiter.
+ *
+ * @author William
+ * @author Patric
+ */
+
 
 @RestController
 @RequestMapping("/request-token")
@@ -33,9 +47,12 @@ public class AuthController {
                         loginRequest.password()
                 )
         );
+        MyUserDetails details = (MyUserDetails) auth.getPrincipal();
 
         String token = tokenService.generateToken(auth);
 
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        return ResponseEntity.ok(new LoginResponseDTO(token, details.getId()));
     }
+
+
 }

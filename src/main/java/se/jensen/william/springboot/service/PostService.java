@@ -1,10 +1,10 @@
 package se.jensen.william.springboot.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import se.jensen.william.springboot.dto.PostRequestDTO;
 import se.jensen.william.springboot.dto.PostResponseDTO;
 import se.jensen.william.springboot.entities.Post;
@@ -16,6 +16,17 @@ import se.jensen.william.springboot.repository.PostRepository;
 import se.jensen.william.springboot.repository.UserRepository;
 
 import java.time.LocalDateTime;
+/**
+ * Service-klass för hantering av inlägg posts.
+ *
+ * Klassen iunnhåler affärslogik för alla operationer relaterade till inläggen.
+ * Den hanterar skapande, uppdatering, borttagning eller hämtning av inläggen från databasen.
+ *
+ * @author William
+ * @author Fadime
+ * @author Linus
+ */
+
 
 @Service
 public class PostService {
@@ -30,7 +41,7 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public PostResponseDTO createPost(Long userId, PostRequestDTO postDto){
+    public PostResponseDTO createPost(Long userId, PostRequestDTO postDto) {
         logger.info("Creating post for user id: {}", userId);
 
         LocalDateTime now = LocalDateTime.now();
@@ -53,7 +64,7 @@ public class PostService {
         return PostMapper.toDto(savedPost);
     }
 
-    public PostResponseDTO updatePost(Long id, PostRequestDTO postDto){
+    public PostResponseDTO updatePost(Long id, PostRequestDTO postDto) {
         logger.info("Updating post with id: {}", id);
 
         Post post = postRepository.findById(id)
@@ -70,7 +81,7 @@ public class PostService {
         return PostMapper.toDto(savedPost);
     }
 
-    public void deletePost(Long id){
+    public void deletePost(Long id) {
         logger.info("Attempting to delete post with id: {}", id);
 
         Post post = postRepository.findById(id)
@@ -96,7 +107,7 @@ public class PostService {
         return PostMapper.toDto(post);
     }
 
-    public Page<PostResponseDTO> getPosts(Pageable pageable) {
+    public Page<PostResponseDTO> getAllPosts(Pageable pageable) {
         logger.debug("Fetching posts: page={}, size={}",
                 pageable.getPageNumber(), pageable.getPageSize());
 
@@ -106,6 +117,22 @@ public class PostService {
         logger.info("Fetched {} posts out of {} total",
                 result.getNumberOfElements(), result.getTotalElements());
 
+        return result;
+    }
+
+    /**
+     * Hämtar inlägg för användaren (Wall) med pagination.
+     * Mappar automatiskt Post-entiteter till PostResponseDTO.
+     * Linus
+     */
+    public Page<PostResponseDTO> getPostsByUserId(Long userId, Pageable pageable) {
+        logger.debug("Fetching posts for user {}: page={}, size={}",
+                userId, pageable.getPageNumber(), pageable.getPageSize());
+
+        Page<PostResponseDTO> result = postRepository.findByUserId(userId, pageable)
+                .map(PostMapper::toDto);
+
+        logger.info("Fetched {} posts for user {}", result.getNumberOfElements(), userId);
         return result;
     }
 }

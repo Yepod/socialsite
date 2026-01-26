@@ -1,4 +1,10 @@
 package se.jensen.william.springboot.exceptions;
+/**
+ * Undantagsklass som används när en användare inte hittas i databasen.
+ *
+ * @author William
+ */
+
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(Long id) {

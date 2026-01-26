@@ -4,6 +4,18 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+/**
+ * Entitetsklass som representerar en användare i systemet
+ *
+ * KLasses moddelerar användar konton och all användarrelaterade information som är lagrad i systemet
+ * bland annat e-post, användarnamn, lössenord, användar behörighet, profil information såsom, vissningsnamn
+ *
+ * Klassen har en One-to-Many-relation till Post-entiteten
+ *
+ * @author William
+ */
+
+
 @Entity
 @Table(name = "app_user")
 public class User {
