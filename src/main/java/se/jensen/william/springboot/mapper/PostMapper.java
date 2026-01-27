@@ -7,45 +7,35 @@ import se.jensen.william.springboot.entities.Post;
 /**
  * Mapper-klass för konvertering mellan Post-entitet och DTO-objekt.
  *
- * Klassen handhåller motoder för att mappa mellan post-entitet och DTO.
- * Konventerar från postrequestdto till post entitet vid skapande eller uppdateirng av post
+ * Klassen hanterar metoder för att mappa mellan Post-entitet och DTO.
  *
  * @author William
  * @author Linus
  */
-
-
-
 public class PostMapper {
 
-    // SKAPAR USER GENOM REQUESTDTO
+    // SKAPAR POST FRÅN REQUESTDTO
     public static Post fromDto(PostRequestDTO postDto) {
         Post post = new Post();
         setPostValues(post, postDto);
         return post;
     }
 
-    // UPPDATERA EXISTERANDE USER
+    // UPPDATERAR EXISTERANDE POST
     public static Post fromDto(Post post, PostRequestDTO postDto) {
         setPostValues(post, postDto);
         return post;
     }
 
-    // HJÄLP METOD FÖR ATT SÄTTA VÄRDEN
+    // HJÄLPMETOD FÖR ATT SÄTTA VÄRDEN
     private static void setPostValues(Post post, PostRequestDTO postDto) {
         post.setText(postDto.text());
     }
 
-    // SKICKAR USER TILL RESPONSEDTO
-
-    /**
-     * Hämtar Post-inläggarens id och användarnamn från den kopplade User-entiteten.
-     * Linus
-     */
+    // KONVERTERAR POST → RESPONSEDTO
     public static PostResponseDTO toDto(Post post) {
         return new PostResponseDTO(
                 post.getId(),
-                post.getUser().getId(),
                 post.getText(),
                 post.getCreatedAt(),
                 post.getUser() != null ? post.getUser().getId() : null,
