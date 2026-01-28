@@ -6,11 +6,19 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import se.jensen.william.springboot.entities.Friendship;
 import se.jensen.william.springboot.entities.User;
 import se.jensen.william.springboot.mapper.FriendshipMapper;
 import se.jensen.william.springboot.mapper.UserMapper;
 import se.jensen.william.springboot.repository.FriendshipRepository;
 import se.jensen.william.springboot.repository.UserRepository;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class FriendshipServiceTest {
@@ -24,25 +32,32 @@ public class FriendshipServiceTest {
     private UserMapper userMapper;
     @Mock
     private FriendshipMapper friendshipMapper;
-    @Mock
-    private PasswordEncoder passwordEncoder;
 
     @Test
-    public void becomeFriends() {
+    public void acceptFriendRequestTest() {
         // Arrange
-        User friendlyUser = new User();
-        friendlyUser.setId(1L);
-        friendlyUser.setUsername("NallePuh");
+        User requester = new User();
+        requester.setId(1L);
+        requester.setUsername("NallePuh");
 
-        User friendlyUser2 = new User();
-        friendlyUser2.setId(2L);
-        friendlyUser2.setUsername("Nasse");
+        User receiver = new User();
+        receiver.setId(2L);
+        receiver.setUsername("Nasse");
 
-        User requester = friendshipRepository.findById();
-        User receiver = friendshipRepository.findById()
+        Friendship friendship = new Friendship(
+                requester,
+                receiver,
+                Friendship.FriendshipStatus.PENDING
+        );
+        friendship.setId(10L);
+
+        when(friendshipRepository.findById(10L))
+                .thenReturn(Optional.of(friendship));
 
         // Act
+        Friendship result = friendshipService.acceptFriendRequest(10L);
 
         // Assert
+        assertEquals(Friendship.FriendshipStatus.ACCEPTED, result.getStatus());
     }
 }
