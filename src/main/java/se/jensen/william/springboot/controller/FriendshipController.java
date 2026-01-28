@@ -2,6 +2,7 @@ package se.jensen.william.springboot.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import se.jensen.william.springboot.dto.FriendshipResponseDTO;
 import se.jensen.william.springboot.dto.FriendshipRequestDTO;
@@ -23,8 +24,21 @@ public class FriendshipController {
     }
 
     @PostMapping("/friend-request")
-    public ResponseEntity<FriendshipResponseDTO> sendFriendRequest(@RequestBody FriendshipRequestDTO dto) {
-        FriendshipResponseDTO response = friendshipService.sendFriendRequest(dto.requesterId(), dto.addresseeId());
+    public ResponseEntity<FriendshipResponseDTO> sendFriendRequest(
+            @RequestBody FriendshipRequestDTO dto,
+            Authentication authentication
+    ) {
+        // Säkerhetskontroll – blockerar felaktiga requesterId
+        if (authentication == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        FriendshipResponseDTO response =
+                friendshipService.sendFriendRequest(
+                        dto.requesterId(),
+                        dto.addresseeId()
+                );
+
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
