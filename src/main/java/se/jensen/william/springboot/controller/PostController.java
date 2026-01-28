@@ -15,7 +15,7 @@ import se.jensen.william.springboot.service.UserService;
 
 /**
  * REST-controller för hantering av inlägg posts
- *
+ * <p>
  * controller har endpoints för CRUD-operationer.
  * Controller hanterar nya inlägg som är skapade till specifika användare.
  *
@@ -57,6 +57,12 @@ public class PostController {
         return ResponseEntity.noContent().build(); // 204 No Content
     }
 
+    /**
+     * Hämtar inlägg (10 stycken, sorterar efter nyaste inlägg.
+     *
+     * @param pageable
+     * @return
+     */
     @GetMapping
     public ResponseEntity<Page<PostResponseDTO>> getAllPosts(
             @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {

@@ -16,9 +16,10 @@ import se.jensen.william.springboot.repository.PostRepository;
 import se.jensen.william.springboot.repository.UserRepository;
 
 import java.time.LocalDateTime;
+
 /**
  * Service-klass för hantering av inlägg posts.
- *
+ * <p>
  * Klassen iunnhåler affärslogik för alla operationer relaterade till inläggen.
  * Den hanterar skapande, uppdatering, borttagning eller hämtning av inläggen från databasen.
  *
@@ -107,6 +108,10 @@ public class PostService {
         return PostMapper.toDto(post);
     }
 
+    /**
+     * Hämtar alla inlägg med stöd för pagination och sortering.
+     * Linus
+     */
     public Page<PostResponseDTO> getAllPosts(Pageable pageable) {
         logger.debug("Fetching posts: page={}, size={}",
                 pageable.getPageNumber(), pageable.getPageSize());
