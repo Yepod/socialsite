@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 /**
  * Entitetsklass som representerar en "friendship" mellan två användare
  *
- * Denna klass modellerar vänskap i systemt och lagrar den information som skicakde request och vem som tar emot adresser
- * och även vissar status
+ * Denna klass modellerar vänskap i systemet och lagrar den information som skicakde request och vem som tar emot adresser
+ * och även visar status
  *
  * @author William
  */
