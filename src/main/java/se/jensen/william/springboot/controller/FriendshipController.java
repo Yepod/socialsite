@@ -6,11 +6,21 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import se.jensen.william.springboot.dto.FriendshipResponseDTO;
 import se.jensen.william.springboot.dto.FriendshipRequestDTO;
+import se.jensen.william.springboot.dto.UserResponseDTO;
 import se.jensen.william.springboot.entities.Friendship;
 import se.jensen.william.springboot.mapper.FriendshipMapper;
 import se.jensen.william.springboot.service.FriendshipService;
 
 import java.util.List;
+
+/**
+ * REST-Controller för hantering av Friendships
+ *
+ * Controller hanterar endpoints för att skapa vänskap, acceptera eller neka vänskap.
+ * Likaväl som att kunna se PENDING och en komplett vänlista med ACCPETED friendships.
+ *
+ * @auther William
+ */
 
 @RestController
 @RequestMapping("/friends")
@@ -64,7 +74,7 @@ public class FriendshipController {
         );
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/{userId}/status")
     public ResponseEntity<List<FriendshipResponseDTO>> getAllFriendshipStatus(
             @PathVariable Long userId
     ) {
@@ -72,4 +82,14 @@ public class FriendshipController {
                 friendshipService.getAllFriendshipStatus(userId)
         );
     }
+
+    @GetMapping("/{userId}/friends")
+    public ResponseEntity<List<UserResponseDTO>> getAllFriends(
+            @PathVariable Long userId
+    ) {
+        return ResponseEntity.ok(
+                friendshipService.getAllFriends(userId)
+        );
+    }
+
 }
