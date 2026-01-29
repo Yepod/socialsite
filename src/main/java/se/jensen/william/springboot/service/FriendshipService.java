@@ -28,6 +28,12 @@ public class FriendshipService {
         this.userMapper = userMapper;
     }
 
+    /**
+     * Skapar en friend-request och kollar så inte det redans finns en som inväntar svar.
+     *
+     * @author William
+     */
+
     public FriendshipResponseDTO sendFriendRequest (Long senderId, Long receiverId) {
         if(senderId.equals(receiverId))
             throw new FriendRequestToSelfException(receiverId);
@@ -49,6 +55,12 @@ public class FriendshipService {
         return friendshipMapper.toDto(savedFriendship);
     }
 
+    /**
+     * Hämtar alla PENDING friend-requests som en user har.
+     *
+     * @author William
+     */
+
     @Transactional(readOnly = true)
     public List<FriendshipResponseDTO> getAllFriendshipStatus(Long userId) {
         User user = userRepository.findById(userId)
@@ -59,6 +71,12 @@ public class FriendshipService {
                 .toList();
     }
 
+    /**
+     * Hämtar upp det friendship objekt som är i PENDING - state och ändrar från
+     * PENDING till ACCEPTED och returnerar friendship objektet.
+     *
+     * @author William
+     */
     @Transactional
     public Friendship acceptFriendRequest(Long friendshipId) {
         Friendship friendship = friendshipRepository.findById(friendshipId)
@@ -75,6 +93,12 @@ public class FriendshipService {
         return friendship;
     }
 
+    /**
+     * Hämtar upp det friendship objekt som är i PENDING - state och ändrar från
+     * PENDING till DECLINED och returnerar friendship objektet.
+     *
+     * @author William
+     */
     @Transactional
     public Friendship declineFriendRequest(Long friendshipId) {
         Friendship friendship = friendshipRepository.findById(friendshipId)
@@ -91,6 +115,14 @@ public class FriendshipService {
         return friendship;
     }
 
+    /**
+     * Plockar upp den specifika usern som man vill se alla deras vänner.
+     * Visar endast de friendship objekt som har statusen "ACCEPTED"
+     * Ser också till att var i sig man är requester eller addressee ska alltid
+     * den andra personen vara "vännen" inte en själv.
+     *
+     * @author William
+     */
     @Transactional(readOnly = true)
     public List<UserResponseDTO> getAllFriends(Long userId) {
         User user = userRepository.findById(userId)
