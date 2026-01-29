@@ -15,47 +15,53 @@ import java.util.List;
 @RestController
 @RequestMapping("/friends")
 public class FriendshipController {
+
     private final FriendshipService friendshipService;
     private final FriendshipMapper friendshipMapper;
 
-    public FriendshipController(FriendshipService friendshipService, FriendshipMapper friendshipMapper) {
+    public FriendshipController(FriendshipService friendshipService,
+                                FriendshipMapper friendshipMapper) {
         this.friendshipService = friendshipService;
         this.friendshipMapper = friendshipMapper;
     }
 
     @PostMapping("/friend-request")
     public ResponseEntity<FriendshipResponseDTO> sendFriendRequest(
-            @RequestBody FriendshipRequestDTO dto,
-            Authentication authentication
+            @RequestBody FriendshipRequestDTO dto
     ) {
-        // Säkerhetskontroll – blockerar felaktiga requesterId
-        if (authentication == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
         FriendshipResponseDTO response =
                 friendshipService.sendFriendRequest(
                         dto.requesterId(),
                         dto.addresseeId()
                 );
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(response);
     }
 
     @PutMapping("/{id}/accept")
     public ResponseEntity<FriendshipResponseDTO> acceptFriendRequest(
             @PathVariable Long id
     ) {
-        Friendship friendship = friendshipService.acceptFriendRequest(id);
-        return ResponseEntity.ok(friendshipMapper.toDto(friendship));
+        Friendship friendship =
+                friendshipService.acceptFriendRequest(id);
+
+        return ResponseEntity.ok(
+                friendshipMapper.toDto(friendship)
+        );
     }
 
     @PutMapping("/{id}/decline")
     public ResponseEntity<FriendshipResponseDTO> declineFriendRequest(
             @PathVariable Long id
     ) {
-        Friendship friendship = friendshipService.declineFriendRequest(id);
-        return ResponseEntity.ok(friendshipMapper.toDto(friendship));
+        Friendship friendship =
+                friendshipService.declineFriendRequest(id);
+
+        return ResponseEntity.ok(
+                friendshipMapper.toDto(friendship)
+        );
     }
 
     @GetMapping("/{userId}")
